@@ -15,7 +15,6 @@ public class AccountsServer {
 	protected static Logger logger = Logger.getLogger(AccountsServer.class.getName());
 	
 	public static void main(String[] args) {
-		System.setProperty("spring.config.name", "accounts-server");
 		SpringApplication.run(AccountsServer.class, args);
 	
 	}

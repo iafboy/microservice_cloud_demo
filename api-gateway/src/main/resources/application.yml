@@ -14,9 +14,9 @@ endpoints:
 
 eureka:
   instance:
-    hostname: gateway
+    hostname: localhost
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://localhost:1111/eureka/

@@ -36,8 +36,6 @@ public class WebServer {
 	 *            Program arguments - ignored.
 	 */
 	public static void main(String[] args) {
-		// Tell server to look for web-server.properties or web-server.yml
-		System.setProperty("spring.config.name", "web-server");
 		SpringApplication.run(WebServer.class, args);
 	}
 
