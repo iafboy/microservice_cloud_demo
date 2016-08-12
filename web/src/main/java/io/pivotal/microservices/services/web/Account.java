@@ -14,7 +14,7 @@ public class Account {
 
 	protected Long id;
 	protected String number;
-	protected String owner;
+	protected String name;
 	protected BigDecimal balance;
 
 	/**
@@ -46,12 +46,12 @@ public class Account {
 		this.number = accountNumber;
 	}
 
-	public String getOwner() {
-		return owner;
+	public String getName() {
+		return name;
 	}
 
-	protected void setOwner(String owner) {
-		this.owner = owner;
+	protected void setName(String owner) {
+		this.name = owner;
 	}
 
 	public BigDecimal getBalance() {
@@ -65,7 +65,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return number + " [" + owner + "]: $" + balance;
+		return number + " [" + name + "]: $" + balance;
 	}
 
 }

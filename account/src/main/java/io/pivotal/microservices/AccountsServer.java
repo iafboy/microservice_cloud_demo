@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import io.pivotal.microservices.common.CommonParams;
-
-@EnableAutoConfiguration
 @EnableDiscoveryClient
+@EnableAutoConfiguration
 @ComponentScan(basePackages = CommonParams.BASEACCOUNTPATH)
 public class AccountsServer {
 	protected static Logger logger = Logger.getLogger(AccountsServer.class.getName());

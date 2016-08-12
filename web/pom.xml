@@ -23,16 +23,10 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<dependency>
-			<!-- Setup Spring Data common components -->
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-commons</artifactId>
-		</dependency>
 	
 		<dependency>
 			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			
+			<artifactId>guava</artifactId>		
 		</dependency>
 		
 		        <dependency>
