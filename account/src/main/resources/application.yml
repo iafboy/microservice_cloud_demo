@@ -1,11 +1,11 @@
 eureka:
   instance:
     hostname: localhost
+    preferIpAddress: true
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
-      
+      defaultZone: http://localhost:1111/eureka/      
 server:
   port: 2222

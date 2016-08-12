@@ -11,7 +11,7 @@
         <module>discovery</module>
         <module>api-gateway</module>
         <module>hystrix-dashboard</module>
-        <module>config</module> 
+        <module>config</module>
         <module>account</module>
         <module>web</module>
     </modules>
@@ -22,6 +22,8 @@
 	</parent>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
 		<alibaba.fastjson.version>1.2.15</alibaba.fastjson.version>
 		<google.guava.version>18.0</google.guava.version>
 	</properties>
@@ -46,6 +48,9 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 		</dependency>
-
+		 <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 	</dependencies>
 </project>
