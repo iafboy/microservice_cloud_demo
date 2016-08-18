@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.pivotal.microservices.accounts.db.model.AccountModel;
@@ -25,7 +27,6 @@ public class AccountsController {
 	
 	@RequestMapping("/accounts/{accountNumber}")
 	public AccountModel byNumber(@PathVariable("accountNumber") String accountNumber) {
-		logger.info("accounts-service total: " + accountService.countAccounts());
 		logger.info("accounts-service byNumber() invoked: " + accountNumber);
 		AccountModel account = accountService.findByNumber(accountNumber);
 		logger.info("accounts-service byNumber() found: " + account);
@@ -37,6 +38,15 @@ public class AccountsController {
 		}
 	}
 
+	@RequestMapping(value="/updateAccount/{accountNumber}",method = RequestMethod.PUT)
+	public boolean updatebyNumber(@PathVariable("accountNumber") String accountNumber ,@RequestBody AccountModel account) {
+		return accountService.updateAccount(account);
+	}
+	
+	@RequestMapping(value="/deleteAccounts/{accountNumber}",method = RequestMethod.DELETE)
+	public boolean deletebyNumber(@PathVariable("accountNumber") String accountNumber) {
+		return accountService.deleteByNumber(accountNumber);
+	}
 	
 	@RequestMapping("/accounts/owner/{name}")
 	public List<AccountModel> byOwner(@PathVariable("name") String partialName) {

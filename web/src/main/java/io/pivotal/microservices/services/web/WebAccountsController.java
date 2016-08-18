@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -55,6 +56,15 @@ public class WebAccountsController {
 		logger.info("web-service byNumber() found: " + account);
 		model.addAttribute("account", account);
 		return "account";
+	}
+	
+	@RequestMapping("/deleteAccount/{accountNumber}")
+	public String deleteByNumber(Model model,
+			@PathVariable("accountNumber") String accountNumber) {
+		
+		logger.info("web-service deleteByNumber() invoked: " + accountNumber);
+		accountsService.deleteByNumber(accountNumber);
+		return "redirect:/accounts/dosearch";
 	}
 
 	@RequestMapping("/accounts/owner/{text}")

@@ -14,6 +14,7 @@ public class AccountsServer {
 	protected static Logger logger = Logger.getLogger(AccountsServer.class.getName());
 	
 	public static void main(String[] args) {
+		System.setProperty("spring.mvc.dispatch-options-request","true");
 		SpringApplication.run(AccountsServer.class, args);
 	
 	}

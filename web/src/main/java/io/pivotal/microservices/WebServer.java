@@ -36,6 +36,7 @@ public class WebServer {
 	 *            Program arguments - ignored.
 	 */
 	public static void main(String[] args) {
+		System.setProperty("spring.mvc.dispatch-options-request","true");
 		SpringApplication.run(WebServer.class, args);
 	}
 

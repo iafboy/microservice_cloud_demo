@@ -23,6 +23,7 @@
 					<th>Account Number</th>
 					<th>Owner</th>
 					<th>Balance</th>
+					<th>Operation</th>
 				</tr>
 			</thead>
 
@@ -33,6 +34,7 @@
 						th:text="|${account.number}|">11111111</a></td>
 					<td th:text="${account.name}">Owner</td>
 					<td th:text="${account.balance}">0</td>
+					<td><a th:href="@{|/deleteAccount/${account.number}|}">delete</a></td>
 				</tr>
 			</tbody>
 		</table>

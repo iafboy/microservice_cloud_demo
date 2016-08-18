@@ -1,7 +1,9 @@
 package io.pivotal.microservices.services.web;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -81,5 +83,22 @@ public class WebAccountsService {
 			throw new AccountNotFoundException(accountNumber);
 		else
 			return account;
+	}
+	
+	public void updateNameByNumber(String accountNumber,String accountName){		
+		Account account = restTemplate.getForObject(serviceUrl
+				+ "/accounts/{number}", Account.class, accountNumber);
+		if (account == null)
+			throw new AccountNotFoundException(accountNumber);
+		account.setName(accountName);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("accountNumber",accountNumber);
+		restTemplate.put(serviceUrl+ "/updateAccount", account,params);
+	}
+	
+	public void deleteByNumber(String accountNumber) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("accountNumber",accountNumber);
+		restTemplate.delete(serviceUrl+ "/deleteAccount/{accountNumber}", params);
 	}
 }

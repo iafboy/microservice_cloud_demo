@@ -27,5 +27,16 @@ public class AccountRepoService {
 		return accountDao.findByOwnerContainingIgnoreCase(partialName);
 	}
 	
-	
+	public boolean updateByNumber(String accountNumber,String name) {
+		return accountDao.updateName(accountNumber, name);
+	}
+	public boolean updateAccount(AccountModel account) {
+		return accountDao.updateAccount(account);
+	}
+	public boolean insertAccount(AccountModel account) {
+		return accountDao.insertAccount(account);
+	}
+	public boolean deleteByNumber(String accountNumber) {
+		return accountDao.deleteAccount(accountNumber);
+	}
 }
