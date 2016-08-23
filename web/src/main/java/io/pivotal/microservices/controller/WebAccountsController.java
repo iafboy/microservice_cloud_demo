@@ -1,6 +1,4 @@
-package io.pivotal.microservices.services.web;
-
-import io.pivotal.microservices.services.web.Account;
+package io.pivotal.microservices.controller;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -8,7 +6,6 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,6 +13,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import io.pivotal.microservices.model.Account;
+import io.pivotal.microservices.model.SearchCriteria;
+import io.pivotal.microservices.services.WebAccountsService;
 
 /**
  * Client controller, fetches Account info from the microservice via

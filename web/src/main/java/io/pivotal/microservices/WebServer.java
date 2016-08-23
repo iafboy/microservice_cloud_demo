@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
-import io.pivotal.microservices.services.web.HomeController;
-import io.pivotal.microservices.services.web.WebAccountsController;
-import io.pivotal.microservices.services.web.WebAccountsService;
+import io.pivotal.microservices.controller.HomeController;
+import io.pivotal.microservices.controller.WebAccountsController;
+import io.pivotal.microservices.services.WebAccountsService;
 
 /**
  * Accounts web-server. Works as a microservice client, fetching data from the

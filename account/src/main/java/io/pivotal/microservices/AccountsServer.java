@@ -18,5 +18,4 @@ public class AccountsServer {
 		SpringApplication.run(AccountsServer.class, args);
 	
 	}
-	
 }

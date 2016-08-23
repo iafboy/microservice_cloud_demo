@@ -1,4 +1,4 @@
-package io.pivotal.microservices.services.web;
+package io.pivotal.microservices.model;
 
 import java.math.BigDecimal;
 
@@ -50,7 +50,7 @@ public class Account {
 		return name;
 	}
 
-	protected void setName(String owner) {
+	public void setName(String owner) {
 		this.name = owner;
 	}
 

@@ -1,4 +1,4 @@
-package io.pivotal.microservices.services.web;
+package io.pivotal.microservices.services;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +15,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import io.pivotal.microservices.exceptions.AccountNotFoundException;
+import io.pivotal.microservices.model.Account;
+import io.pivotal.microservices.model.ReplyMessage;
 
 /**
  * Hide the access to the microservice inside this local service.
@@ -99,6 +101,8 @@ public class WebAccountsService {
 	public void deleteByNumber(String accountNumber) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountNumber",accountNumber);
-		restTemplate.delete(serviceUrl+ "/deleteAccount/{accountNumber}", params);
+		//restTemplate.delete(serviceUrl+ "/deleteAccount/{accountNumber}", params);
+		ReplyMessage rm=restTemplate.getForObject(serviceUrl+ "/deleteAccount/{accountNumber}", ReplyMessage.class,params);
+		logger.warning("delete work sucess? "+rm);
 	}
 }
