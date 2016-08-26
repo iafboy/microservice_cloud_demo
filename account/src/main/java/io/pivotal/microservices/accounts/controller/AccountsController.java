@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.pivotal.microservices.accounts.db.model.AccountModel;
 import io.pivotal.microservices.accounts.db.model.ReplyMessage;
 import io.pivotal.microservices.accounts.service.AccountRepoService;
 import io.pivotal.microservices.exceptions.AccountNotFoundException;
+import io.pivotal.microservices.exceptions.RedisNotSyncExcpetion;
 
 
 @RestController
@@ -43,7 +43,13 @@ public class AccountsController {
 	@RequestMapping(value="/updateAccount/{accountNumber}",method = RequestMethod.PUT)
 	public ReplyMessage updatebyNumber(@PathVariable("accountNumber") String accountNumber ,@RequestBody AccountModel account) {
 		ReplyMessage rm=new ReplyMessage();
-		rm.setSucc(accountService.updateAccount(account));
+		try {
+			rm.setSucc(accountService.updateAccount(account));
+		} catch (RedisNotSyncExcpetion e) {
+			//todo sync redis
+			e.printStackTrace();
+			
+		}
 		return rm;
 	}
 	
@@ -51,7 +57,12 @@ public class AccountsController {
 	public ReplyMessage deletebyNumber(@PathVariable("accountNumber") String accountNumber) {
 		logger.info("accounts-service delete account: " + accountNumber);
 		ReplyMessage rm=new ReplyMessage();
-		rm.setSucc(accountService.deleteByNumber(accountNumber));
+		try {
+			rm.setSucc(accountService.deleteByNumber(accountNumber));
+		} catch (RedisNotSyncExcpetion e) {
+			//todo sync redis
+			e.printStackTrace();
+		}
 		return rm;
 	}
 	

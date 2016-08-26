@@ -7,5 +7,17 @@ spring:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
     prefix: classpath:/accounts-server/templates/    # Trailing / mandatory
                              # Template location for this application only
+  redis:
+    host: 127.0.0.1
+    password: Gemalto,123
+    port: 6379 
+    pool: 
+      max-idle: 100 
+      min-idle: 1
+      max-active: 1000
+      max-wait: -1
+    sentinel:
+      master: 
+      nodes:
 error:
   path: /error
