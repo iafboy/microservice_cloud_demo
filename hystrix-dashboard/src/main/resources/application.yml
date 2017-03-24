@@ -9,6 +9,10 @@ endpoints:
 
 server:
   port: 7979
+  ssl:
+      key-store: classpath:sample.jks
+      key-store-password: secret
+      key-password : password
 
 logging:
   level:
