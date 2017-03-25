@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import io.pivotal.microservices.accounts.cache.RedisManager;
 import io.pivotal.microservices.accounts.db.dao.AccountDao;
 import io.pivotal.microservices.accounts.db.model.AccountModel;
 import io.pivotal.microservices.exceptions.RedisNotSyncExcpetion;
@@ -17,8 +16,6 @@ public class AccountRepoService {
 
 	@Resource
 	protected AccountDao accountDao;
-	@Resource
-	protected RedisManager redisManager;
 
 	public int countAccounts() {
 		return accountDao.countAccounts();
@@ -26,9 +23,6 @@ public class AccountRepoService {
 	
 	@Cacheable(value="accountRedisCache")
 	public AccountModel findByNumber(String accountNumber) {
-		if(redisManager.get(accountNumber)!=null){
-			return (AccountModel) redisManager.get(accountNumber);
-		}
 		return accountDao.findByNumber(accountNumber);
 	}
 
@@ -40,30 +34,23 @@ public class AccountRepoService {
 		return accountDao.updateName(accountNumber, name);
 	}
 	
-	public boolean updateAccount(AccountModel account) throws RedisNotSyncExcpetion {
+	public boolean updateAccount(AccountModel account) throws Exception {
 		boolean result=false;
 		if( accountDao.updateAccount(account)){
 			result=true;
-			if(redisManager.set(account.getNumber(), account)){
-				throw new RedisNotSyncExcpetion(account);
-			}
 		}
 		return result;
 	}
-	public boolean insertAccount(AccountModel account) throws RedisNotSyncExcpetion {
+	public boolean insertAccount(AccountModel account) throws Exception {
 		boolean result=false;
 		if(accountDao.insertAccount(account)){
 			result=true;
-			if(redisManager.set(account.getNumber(), account)){
-				throw new RedisNotSyncExcpetion(account);
-			}
 		}
 		return result;
 	}
-	public boolean deleteByNumber(String accountNumber) throws RedisNotSyncExcpetion{
+	public boolean deleteByNumber(String accountNumber) throws Exception{
 		boolean result=false;
-		if(accountDao.deleteAccount(accountNumber)){	
-			redisManager.remove(accountNumber);
+		if(accountDao.deleteAccount(accountNumber)){
 			result=true;
 		}
 		return result;

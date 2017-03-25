@@ -1,9 +1,9 @@
 server:
   port: 10000
   ssl:
-      key-store: classpath:sample.jks
-      key-store-password: secret
-      key-password : password
+    key-store: classpath:sample.jks
+    key-store-password: secret
+    key-password : password
 
 sidecar:
   port: 8000

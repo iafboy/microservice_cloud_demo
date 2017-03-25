@@ -1,15 +1,8 @@
 package io.pivotal.microservices.accounts.configure;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-
+import com.alibaba.druid.filter.stat.StatFilter;
+import com.alibaba.druid.pool.DruidDataSource;
+import io.pivotal.microservices.common.CommonParams;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -23,19 +16,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import com.alibaba.druid.filter.stat.StatFilter;
-import com.alibaba.druid.pool.DruidDataSource;
-
-import io.pivotal.microservices.common.CommonParams;
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Configuration
 @EnableTransactionManagement
 public class AccountsMyBatisConfiguration implements TransactionManagementConfigurer {
 	protected static Logger logger = Logger.getLogger(AccountsMyBatisConfiguration.class.getName());
 
-	private Properties duridSettings;
-
-	@Autowired(required = true)
+	@Autowired
+	DBProps dBprops;
+	@Autowired
 	DruidDataSource dataSource;
 	
 	@Autowired
@@ -47,26 +40,26 @@ public class AccountsMyBatisConfiguration implements TransactionManagementConfig
 			logger.info("dataSource() invoked");
 			try {
 				dataSource = new DruidDataSource();
-				dataSource.setFilters((String)duridSettings.get("filters"));
-				dataSource.setInitialSize(Integer.parseInt((String)duridSettings.get("initialSize")));
-				dataSource.setMaxActive(Integer.parseInt((String)duridSettings.get("maxActive")));
-				dataSource.setMinIdle(Integer.parseInt((String)duridSettings.get("minIdle")));
-				dataSource.setMaxWait(Long.parseLong((String)duridSettings.get("maxWait")));
-				dataSource.setTimeBetweenEvictionRunsMillis(Long.parseLong((String)duridSettings.get("timeBetweenEvictionRunsMillis")));
-				dataSource.setMinEvictableIdleTimeMillis(Long.parseLong((String)duridSettings.get("minEvictableIdleTimeMillis")));
-				dataSource.setValidationQuery((String)duridSettings.get("validationQuery"));
-				dataSource.setTestWhileIdle(Boolean.parseBoolean((String)duridSettings.get("testWhileIdle")));
-				dataSource.setTestOnBorrow(Boolean.parseBoolean((String)duridSettings.get("testOnBorrow")));
-				dataSource.setTestOnReturn(Boolean.parseBoolean((String)duridSettings.get("testOnReturn")));
-				dataSource.setPoolPreparedStatements(Boolean.parseBoolean((String)duridSettings.get("poolPreparedStatements")));
-				dataSource.setMaxPoolPreparedStatementPerConnectionSize(Integer.parseInt((String)duridSettings.get("maxPoolPreparedStatementPerConnectionSize")));
-				dataSource.setRemoveAbandoned(Boolean.parseBoolean((String)duridSettings.get("removeAbandoned")));
-				dataSource.setRemoveAbandonedTimeout(Integer.parseInt((String)duridSettings.get("removeAbandonedTimeout")));
-				dataSource.setLogAbandoned(Boolean.parseBoolean((String)duridSettings.get("logAbandoned")));
-				dataSource.setUrl((String)duridSettings.get("url"));
-				dataSource.setUsername((String)duridSettings.get("username"));
-				dataSource.setPassword((String)duridSettings.get("password"));
-				dataSource.setDriverClassName((String)duridSettings.get("driverClassName"));
+				dataSource.setFilters(dBprops.getFilters());
+				dataSource.setInitialSize(dBprops.getInitialSize());
+				dataSource.setMaxActive(dBprops.getMaxActive());
+				dataSource.setMinIdle(dBprops.getMinIdle());
+				dataSource.setMaxWait(dBprops.getMaxWait());
+				dataSource.setTimeBetweenEvictionRunsMillis(dBprops.getTimeBetweenEvictionRunsMillis());
+				dataSource.setMinEvictableIdleTimeMillis(dBprops.getMinEvictableIdleTimeMillis());
+				dataSource.setValidationQuery(dBprops.getValidationQuery());
+				dataSource.setTestWhileIdle(dBprops.isTestWhileIdle());
+				dataSource.setTestOnBorrow(dBprops.isTestOnBorrow());
+				dataSource.setTestOnReturn(dBprops.isTestOnReturn());
+				dataSource.setPoolPreparedStatements(dBprops.isPoolPreparedStatements());
+				dataSource.setMaxPoolPreparedStatementPerConnectionSize(dBprops.getMaxPoolPreparedStatementPerConnectionSize());
+				dataSource.setRemoveAbandoned(dBprops.isRemoveAbandoned());
+				dataSource.setRemoveAbandonedTimeout(dBprops.getRemoveAbandonedTimeout());
+				dataSource.setLogAbandoned(dBprops.isLogAbandoned());
+				dataSource.setUrl(dBprops.getUrl());
+				dataSource.setUsername(dBprops.getUsername());
+				dataSource.setPassword(dBprops.getPassword());
+				dataSource.setDriverClassName(dBprops.getDriverClassName());
 						
 				dataSource.init();
 			} catch (Exception e) {
@@ -82,32 +75,16 @@ public class AccountsMyBatisConfiguration implements TransactionManagementConfig
 	@Bean(name="statfilter")
 	public StatFilter statFilter(){
 		sf=new StatFilter();
-		sf.setLogSlowSql(Boolean.parseBoolean((String)duridSettings.get("logSlowSql")));
-		sf.setMergeSql(Boolean.parseBoolean((String)duridSettings.get("mergeSql")));
-		sf.setSlowSqlMillis(Long.parseLong((String)duridSettings.get("slowSqlMillis")));
+		sf.setLogSlowSql(dBprops.isLogSlowSql());
+		sf.setMergeSql(dBprops.isMergeSql());
+		sf.setSlowSqlMillis(dBprops.getSlowSqlMillis());
 		logger.info("StatFilter() initaled");
 		return sf;
 	}
 
-	public AccountsMyBatisConfiguration() {
-		duridSettings = new Properties();
-		try {
-			File file = new File(this.getClass().getClassLoader().getResource("").getPath() + File.separator
-					+ CommonParams.druidPropPath);
-			InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-			duridSettings.load(inputStream);
-		} catch (Exception e) {
-			logger.log(Level.WARNING, e.getMessage(), e);
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-		logger.info("dataSource configuration initaled");
-		logger.info(duridSettings.toString());
-	}
-
 	@PostConstruct
 	public void checkConfigFileExists() {
-		if (duridSettings == null) {
+		if (dBprops == null) {
 			throw new RuntimeException(
 					"Cannot find config (please add config file or check your Mybatis configuration)");
 		}

@@ -45,7 +45,7 @@ public class AccountsController {
 		ReplyMessage rm=new ReplyMessage();
 		try {
 			rm.setSucc(accountService.updateAccount(account));
-		} catch (RedisNotSyncExcpetion e) {
+		} catch (Exception e) {
 			//todo sync redis
 			e.printStackTrace();
 			
@@ -59,7 +59,7 @@ public class AccountsController {
 		ReplyMessage rm=new ReplyMessage();
 		try {
 			rm.setSucc(accountService.deleteByNumber(accountNumber));
-		} catch (RedisNotSyncExcpetion e) {
+		} catch (Exception e) {
 			//todo sync redis
 			e.printStackTrace();
 		}

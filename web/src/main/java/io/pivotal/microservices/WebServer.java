@@ -1,5 +1,6 @@
 package io.pivotal.microservices;
 
+import io.pivotal.microservices.common.CommonParams;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -37,6 +38,7 @@ public class WebServer {
 	 */
 	public static void main(String[] args) {
 		System.setProperty("spring.mvc.dispatch-options-request","true");
+		System.setProperty("javax.net.ssl.trustStore", CommonParams.InternalCertPath);
 		SpringApplication.run(WebServer.class, args);
 	}
 
