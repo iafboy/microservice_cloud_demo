@@ -35,7 +35,7 @@
 			<version>${alibaba.fastjson.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Eureka service registration -->
+			<!-- Eureka services registration -->
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>

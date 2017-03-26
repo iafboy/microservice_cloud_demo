@@ -19,7 +19,7 @@ import io.pivotal.microservices.model.Account;
 import io.pivotal.microservices.model.ReplyMessage;
 
 /**
- * Hide the access to the microservice inside this local service.
+ * Hide the access to the microservice inside this local services.
  * 
  * @author Paul Chapman
  */
@@ -42,7 +42,7 @@ public class WebAccountsService {
 
 	/**
 	 * The RestTemplate works because it uses a custom request-factory that uses
-	 * Ribbon to look-up the service to use. This method simply exists to show
+	 * Ribbon to look-up the services to use. This method simply exists to show
 	 * this.
 	 */
 	@PostConstruct

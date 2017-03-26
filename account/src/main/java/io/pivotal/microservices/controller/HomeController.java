@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts.controller;
+package io.pivotal.microservices.controller;
 
 import java.util.logging.Logger;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.pivotal.microservices.accounts.service.AccountRepoService;
+import io.pivotal.microservices.services.AccountRepoService;
 
 @Controller
 public class HomeController {

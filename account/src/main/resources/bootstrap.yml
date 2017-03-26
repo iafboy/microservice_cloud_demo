@@ -1,6 +1,6 @@
 spring:
   application:
-     name: accounts-service  # Service registers under this name
+     name: accounts-services  # Service registers under this name
   freemarker:
     enabled: false           # Ignore Eureka dashboard FreeMarker templates
   thymeleaf:

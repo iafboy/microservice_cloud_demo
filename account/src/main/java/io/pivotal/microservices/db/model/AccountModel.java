@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts.db.model;
+package io.pivotal.microservices.db.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

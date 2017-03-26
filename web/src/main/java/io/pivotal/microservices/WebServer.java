@@ -25,7 +25,7 @@ import io.pivotal.microservices.services.WebAccountsService;
 public class WebServer {
 
 	/**
-	 * URL uses the logical name of account-service - upper or lower case,
+	 * URL uses the logical name of account-services - upper or lower case,
 	 * doesn't matter.
 	 */
 	public static final String ACCOUNTS_SERVICE_URL = "http://ACCOUNTS-SERVICE";
@@ -55,9 +55,9 @@ public class WebServer {
 	}
 
 	/**
-	 * The AccountService encapsulates the interaction with the micro-service.
+	 * The AccountService encapsulates the interaction with the micro-services.
 	 * 
-	 * @return A new service instance.
+	 * @return A new services instance.
 	 */
 	@Bean
 	public WebAccountsService accountsService() {

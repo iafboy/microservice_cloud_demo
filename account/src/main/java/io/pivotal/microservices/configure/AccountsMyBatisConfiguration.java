@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts.configure;
+package io.pivotal.microservices.configure;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;

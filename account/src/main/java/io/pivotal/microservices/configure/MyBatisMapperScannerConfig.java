@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts.configure;
+package io.pivotal.microservices.configure;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
