@@ -12,10 +12,6 @@
 			<version>1.0</version>
 	</parent>
 
-	<properties>
-		<docker.image.prefix>kbastani</docker.image.prefix>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
